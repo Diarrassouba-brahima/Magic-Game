@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+    
+</head>
+<body>
+    <div class="container-fluid">
+        <h1>Jeu Math</h1>
+        <p><span>NB:</span>Certainly! The game is  
+            a magic square puzzle, which is a grid of numbers 
+            arranged in such a way that the sum of numbers in each row, each 
+            column, and both main diagonals is the same <span>15</span>. <br>
+            <span>Good Luck</span>
+        </p>
+        <div class="container">
+            <div contenteditable="true">1</div>
+            <div contenteditable="true">2</div>
+            <div contenteditable="true">3</div>
+            <div contenteditable="true">4</div>
+            <div contenteditable="true">5</div>
+            <div contenteditable="true">6</div>
+            <div contenteditable="true">7</div>
+            <div contenteditable="true">8</div>
+            <div contenteditable="true">9</div>
+        </div>
+       
+        <table>
+            <tr>
+                <td><input type="number" name="cell-1" id="cell-1"></td>
+                <td> <input type="number" name="cell-1" id="cell-1"></td>
+                <td> <input type="number" name="cell-1" id="cell-1"></td>
+            </tr>
+            <tr>
+                <td> <input type="number" name="cell-1" id="cell-1"></td>
+                <td> <input type="number" name="cell-1" id="cell-1"></td>
+                <td> <input type="number" name="cell-1" id="cell-1"></td>
+            </tr>
+            <tr>
+                <td> <input type="number" name="cell-1" id="cell-1"></td>
+                <td> <input type="number" name="cell-1" id="cell-1"></td>
+                <td> <input type="number" name="cell-1" id="cell-1"></td>
+            </tr>
+        </table>
+    
+   
+        <p id="result"></p>
+        <button onclick="checkSum()">Vérifier</button>
+        
+    </div>
+    <script>
+        function checkSum() {
+            const grid = document.querySelectorAll('.container div');
+            const cells = Array.from(document.querySelectorAll('input[type="number"]')).map(input => parseInt(input.value));
+            
+            // Vérification des nombres uniques de 1 à 9
+            const unique = [...new Set(cells)];
+            if (unique.length !== 9 || unique.some(num => num < 1 || num > 9)) {
+                document.getElementById('result').innerText = 'Les nombres doivent être uniques de 1 à 9.';
+                return;
+            }
+
+
+            // Vérification des sommes
+            const sums = [
+                cells[0] + cells[1] + cells[2],
+                cells[3] + cells[4] + cells[5],
+                cells[6] + cells[7] + cells[8],
+                cells[0] + cells[3] + cells[6],
+                cells[1] + cells[4] + cells[7],
+                cells[2] + cells[5] + cells[8],
+                cells[0] + cells[4] + cells[8],
+                cells[2] + cells[4] + cells[6]
+            ];
+
+            const isValid = sums.every(sum => sum === 15);
+
+            if (isValid) {
+                document.getElementById('result').innerText = 'You Win!';
+            } else {
+                document.getElementById('result').innerText = 'Les sommes doivent être égales à 15.';
+            }
+        }
+    </script>
+</body>
+</html>
